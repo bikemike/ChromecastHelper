@@ -1,0 +1,180 @@
+<html>
+<head>
+<title> Remote </title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+td{
+	width:33%;
+}
+
+button{
+	width:100%;
+}
+
+</style>
+<script>
+function send(url)
+{
+	var req = new XMLHttpRequest();
+	req.open('GET', url);
+	req.send(); // Add request to task queue
+}
+
+var baseURL = "/samsung?data="
+
+var buttons = [
+	{
+		'name':"On",
+		'data': "e0e09966"
+	},
+	{
+		'name':"SRC",
+		'data': "E0E0807F"
+	},
+	{
+		'name':"Off",
+		'data': "e0e019e6"
+	},
+	{
+		'name':"^",
+		'data': "E0E048B7"
+	},
+	{
+		'name':"MUTE",
+		'data': "E0E0F00F"
+	},
+	{
+		'name':"+",
+		'data': "e0e0e01f"
+	},
+	{
+		'name':"v",
+		'data': "E0E008F7"
+	},
+	{},
+	{
+		'name':"-",
+		'data': "e0e0d02f"
+	},
+	{
+		'name':"1",
+		'data': "E0E020DF"
+	},
+	{
+		'name':"2",
+		'data': "E0E0A05F"
+	},
+	{
+		'name':"3",
+		'data': "E0E0609F"
+	},
+	{
+		'name':"4",
+		'data': "E0E010EF"
+	},
+	{
+		'name':"5",
+		'data': "E0E0906F"
+	},
+	{
+		'name':"6",
+		'data': "E0E050AF"
+	},
+	{
+		'name':"7",
+		'data': "E0E030CF"
+	},
+	{
+		'name':"8",
+		'data': "E0E0B04F"
+	},
+	{
+		'name':"9",
+		'data': "E0E0708F"
+	},
+	{},
+	{
+		'name':"0",
+		'data': "E0E08877"
+	},
+	{},
+	{
+		'name':"Media P",
+		'data': "E0E031CE"
+	},
+	{
+		'name':"Menu",
+		'data': "E0E058A7"
+	},
+	{
+		'name':"Sleep",
+		'data': "e0e09966"
+	},
+	{
+		'name':"Tools",
+		'data': "e0e09966"
+	},
+	{
+		'name':"^",
+		'data': "E0E006F9"
+	},
+	{
+		'name':"Info",
+		'data': "e0e09966"
+	},
+	{
+		'name':"<",
+		'data': "E0E0A659"
+	},
+	{
+		'name':"Select",
+		'data': "E0E016E9"
+	},
+	{
+		'name':">",
+		'data': "E0E046B9"
+	},
+	{
+		'name':"Return",
+		'data': "E0E01AE5"
+	},
+	{
+		'name':"V",
+		'data': "E0E08679"
+	},
+	{
+		'name':"Exit",
+		'data': "E0E0B44B"
+	},
+]
+
+function createRemote()
+{
+	var remoteHtml = "";
+	remoteHtml += "<tbody>"
+	for (var i=0; i < buttons.length; ++i)
+	{
+		if (i % 3 == 0)
+			remoteHtml += "<tr>"
+		remoteHtml += "<td>"
+		var url = baseURL + buttons[i].data + "&bits=32&repeat=0"
+		if (buttons[i].name)
+			remoteHtml += "<button onClick=\"send('" + url + "')\">" + buttons[i].name + "</button>"
+		remoteHtml += "</td>"
+		if (i % 3 == 2)
+			remoteHtml += "</tr>"
+	}
+		
+	remoteHtml += "</tbody>"
+	
+	document.getElementById('remote').innerHTML = remoteHtml;
+}
+
+</script>
+</head>
+<body onLoad="createRemote();">
+<table id="remote" align='center'>
+<tr><td><button onClick="send(cmdOn)">Power On</button></td><td><button onClick="send(cmdOff)">Power Off</button></td><td></td></tr>
+</table>
+</body>
+</html>
